@@ -7,7 +7,7 @@ body {
     background-color: #f0f0f0;
 }
 
-.todoContainer{
+#todoContainer{
     height: 50%;
     width: 40%;
 }
@@ -111,4 +111,23 @@ body {
 
 .noinfo{
     display: flex;
+}
+.calNav{
+    display: flex;
+    margin-top: 9px;
+}
+.calNav p{
+    margin: 0px 2px 0px 2px;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.btn{
+    background: none;
+    border: none;
+    cursor: pointer;
 }

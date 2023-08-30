@@ -3,10 +3,28 @@
 
 
 let eventData = JSON.parse(localStorage.getItem('eventObject'))
-let todoContainer = document.querySelector('.todoContainer')
+let todoContainer = document.querySelector('#todoContainer')
 
-
+//if current date is passed it will show the event corresponding to that day else it will show all the events
+function listItems(currentDate){
     try {
+        let allContent = document.querySelectorAll('.content')
+        allContent.forEach(content=>{                            //remove the All previous lists
+            content.remove()
+        })
+        let eventData = JSON.parse(localStorage.getItem('eventObject'))
+        if(currentDate){
+            eventData =  eventData.filter((eachEvent) => {
+                const date1 = new Date(eachEvent.eventDate);
+                const date2 = new Date(currentDate);
+                console.log("date 1 "+date1)
+                console.log("date 2 "+date2)
+                return (date1.getDate() === date2.getDate() &&
+                date1.getMonth() === date2.getMonth() &&
+                date1.getFullYear() === date2.getFullYear())
+            });
+            console.log(eventData)
+        }
         eventData.forEach((eachEvent)=>{
             const contentMenu = document.createElement('button')
             contentMenu.classList.add('contentMenu')
@@ -50,33 +68,44 @@ let todoContainer = document.querySelector('.todoContainer')
             content.appendChild(contentDate)
             todoContainer.appendChild(content)
 })
+            createPopUp()
     } catch (error) {
         console.log('no data')
         
     }
+}
 
-    
-const menuButton = document.querySelectorAll('.contentMenu')
-const subMenu = document.querySelectorAll('.sub-menu')
+function createPopUp(){
+    // Select the target node that you want to observe
+    const targetNode = document.getElementById('todoContainer');
+    const menuButton = document.querySelectorAll('.contentMenu')
+    const subMenu = document.querySelectorAll('.sub-menu')
 
-// for showing and hiding the menu
 
-menuButton.forEach((element,index)=>{
-    element.addEventListener('click',()=>{
-        if(subMenu[index].style.opacity==0){
-            subMenu[index].style = "opacity: 1;visibility: visible;"
-        }
-        else{
-            subMenu[index].style = "opacity: 0;visibility: hidden;"
-        }
+    // for showing and hiding the menu
+
+    menuButton.forEach((element,index)=>{
+        element.addEventListener('click',()=>{
+            console.log('its clicking dude')
+            if(subMenu[index].style.opacity==0){
+                subMenu[index].style = "opacity: 1;visibility: visible;"
+            }
+            else{
+                subMenu[index].style = "opacity: 0;visibility: hidden;"
+            }
+        })
     })
-})
+}
 
 const addButton = document.querySelector('#addbutton')
 
-addButton.addEventListener('click',()=>{
-    window.location.href = 'adddetails.html'
-})
+try {
+    addButton.addEventListener('click',()=>{
+        window.location.href = 'adddetails.html'
+    })
+} catch (error) {
+    console.log('bro this request is from todays event')
+}
 
 // deleting an event
 const deleteButtons = document.querySelectorAll('.option2')
@@ -91,54 +120,4 @@ deleteButtons.forEach((eachDeleteButton,index)=>{
     })
 })
 
-// function deleteData(dateToRemove,indexToRemove){
-    
-// // Check if the specified date exists in the eventData object
-// if (eventData[dateToRemove]) {
-//     // Check if the specified index is within bounds
-//     if (indexToRemove >= 0 && indexToRemove < eventData[dateToRemove].length) {
-//         // Remove the event at the specified index
-//         eventData[dateToRemove].splice(indexToRemove, 1);
-        
-//         // If the array becomes empty, you can remove the date key from the eventData object
-//         if (eventData[dateToRemove].length === 0) {
-//             delete eventData[dateToRemove];
-//         }
-        
-//         console.log('Event removed successfully.');
-//     } else {
-//         console.log('Invalid index.');
-//     }
-// } else {
-//     console.log('Date not found in eventData.');
-// }
-// localStorage.setItem('eventObject' , JSON.stringify(eventData))
-
-// }
-// const deleteButtons = document.querySelectorAll('.option2');
-
-// deleteButtons.forEach((eachDeleteButton, index) => {
-//     eachDeleteButton.addEventListener('click', () => {
-//         const allContent = document.querySelectorAll('.content');
-//         const eventContent = allContent[index];
-//         const dateElement = eventContent.querySelector('.contentDate');
-//         const eventDate = dateElement.textContent.trim();
-        
-//         if (eventData[eventDate]) {
-//             eventData[eventDate].splice(index, 1);
-            
-//             if (eventData[eventDate].length === 0) {
-//                 delete eventData[eventDate];
-//             }
-            
-//             localStorage.setItem('eventObject', JSON.stringify(eventData));
-//             // allContent[index].style="display : none"
-//             eventContent.remove();
-//             location.reload()
-//             console.log('Event removed successfully.');
-//         } else {
-//             console.log('Event not found.');
-//         }
-//     });
-// });
-
+createPopUp()
