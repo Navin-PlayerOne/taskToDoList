@@ -81,7 +81,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.options{
+.option1,.option2{
     display: flex;
     justify-content: space-between;
     margin: 5px;
@@ -107,4 +107,8 @@ body {
     line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
+}
+
+.noinfo{
+    display: flex;
 }
