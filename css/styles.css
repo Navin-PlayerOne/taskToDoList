@@ -131,3 +131,20 @@ body {
     border: none;
     cursor: pointer;
 }
+
+.todaysevent{
+    font-size: 13px;
+}
+.todaysevent > a{
+    text-decoration: none;
+}
+
+.noevent{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+    top: 50%;
+    display: none;
+    font-family: Inter;
+}

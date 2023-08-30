@@ -5,8 +5,11 @@
 let eventData = JSON.parse(localStorage.getItem('eventObject'))
 let todoContainer = document.querySelector('#todoContainer')
 
+let indexArray = [] //to track the filtered element for deleting in case of deleting in todays event page
+
 //if current date is passed it will show the event corresponding to that day else it will show all the events
 function listItems(currentDate){
+    indexArray = []
     try {
         let allContent = document.querySelectorAll('.content')
         allContent.forEach(content=>{                            //remove the All previous lists
@@ -14,16 +17,27 @@ function listItems(currentDate){
         })
         let eventData = JSON.parse(localStorage.getItem('eventObject'))
         if(currentDate){
-            eventData =  eventData.filter((eachEvent) => {
+            eventData =  eventData.filter((eachEvent,index) => {
                 const date1 = new Date(eachEvent.eventDate);
                 const date2 = new Date(currentDate);
                 console.log("date 1 "+date1)
                 console.log("date 2 "+date2)
-                return (date1.getDate() === date2.getDate() &&
+                if (date1.getDate() === date2.getDate() &&
                 date1.getMonth() === date2.getMonth() &&
-                date1.getFullYear() === date2.getFullYear())
+                date1.getFullYear() === date2.getFullYear()){
+                    indexArray.push(index)
+                    return true;
+                }
+                else{
+                    return false;
+                }
             });
             console.log(eventData)
+        }
+        else{
+            for(let i =0 ;i<eventData.length;i++){
+                indexArray.push(i)
+            }
         }
         eventData.forEach((eachEvent)=>{
             const contentMenu = document.createElement('button')
@@ -68,7 +82,15 @@ function listItems(currentDate){
             content.appendChild(contentDate)
             todoContainer.appendChild(content)
 })
+            const noevent = document.querySelector('.noevent')
+            if(eventData.length==0){
+                noevent.style = "display : block";
+            }
+            else{
+                noevent.style = "display : none";
+            }
             createPopUp()
+            addDeleteEvent()
     } catch (error) {
         console.log('no data')
         
@@ -101,23 +123,27 @@ const addButton = document.querySelector('#addbutton')
 
 try {
     addButton.addEventListener('click',()=>{
-        window.location.href = 'adddetails.html'
+        window.location.href = '../html/adddetails.html'
     })
 } catch (error) {
     console.log('bro this request is from todays event')
 }
 
-// deleting an event
-const deleteButtons = document.querySelectorAll('.option2')
-deleteButtons.forEach((eachDeleteButton,index)=>{
-    eachDeleteButton.addEventListener('click',(ele)=>{
-        console.log(index,ele)
-        let allContent = document.querySelectorAll('.content')
-        allContent[index].remove()
-        eventData.splice(index,1)
-        localStorage.setItem('eventObject' , JSON.stringify(eventData))
-        location.reload()
+function addDeleteEvent(){
+    // deleting an event
+    const deleteButtons = document.querySelectorAll('.option2')
+    deleteButtons.forEach((eachDeleteButton,index)=>{
+        eachDeleteButton.addEventListener('click',(ele)=>{
+            console.log(index,ele)
+            let allContent = document.querySelectorAll('.content')
+            allContent[index].remove()
+            let eventData = JSON.parse(localStorage.getItem('eventObject'))
+            eventData.splice(indexArray[index],1)
+            localStorage.setItem('eventObject' , JSON.stringify(eventData))
+            location.reload()
+        })
     })
-})
+}
+addDeleteEvent()
 
 createPopUp()
