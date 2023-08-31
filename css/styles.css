@@ -159,6 +159,9 @@ body {
     height: 100%;
     width: 100%;
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .cont-header, .cont-body{
@@ -187,7 +190,7 @@ body {
 }
 
 .ruler{
-    margin: 2rem 2rem 0 2rem;
+    margin: 1rem 2rem 0 2rem;
 }
 
 .cont-date{
@@ -198,7 +201,6 @@ body {
     letter-spacing: 0em;
     text-align: left;
     margin-left: 2.5rem;
-    margin-top: 1rem;
 }
 
 @media (max-width:990px) {
