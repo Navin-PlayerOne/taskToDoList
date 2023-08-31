@@ -220,3 +220,9 @@ addDeleteEvent()
 addUpdateEvent()
 
 createPopUp()
+
+// Check if the page was accessed through a back navigation
+if (window.performance.navigation.type === 2) {
+    // Reload the page
+    window.location.reload();
+}
