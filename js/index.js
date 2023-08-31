@@ -92,6 +92,7 @@ function listItems(currentDate){
             createPopUp()
             addDeleteEvent()
             addUpdateEvent()
+            addTileOpenEvent()
     } catch (error) {
         console.log('no data')
         
@@ -108,7 +109,8 @@ function createPopUp(){
     // for showing and hiding the menu
 
     menuButton.forEach((element,index)=>{
-        element.addEventListener('click',()=>{
+        element.addEventListener('click',(event)=>{
+            event.stopPropagation();
             console.log('its clicking dude')
             if(subMenu[index].style.opacity==0){
                 subMenu[index].style = "opacity: 1;visibility: visible;"
@@ -135,6 +137,7 @@ function addDeleteEvent(){
     const deleteButtons = document.querySelectorAll('.option2')
     deleteButtons.forEach((eachDeleteButton,index)=>{
         eachDeleteButton.addEventListener('click',(ele)=>{
+            ele.stopPropagation();
             console.log(index,ele)
             let allContent = document.querySelectorAll('.content')
             allContent[index].remove()
@@ -151,6 +154,7 @@ function addUpdateEvent(){
     const updateButtons = document.querySelectorAll('.option1')
     updateButtons.forEach((eachUpdateButton,index)=>{
         eachUpdateButton.addEventListener('click',(ele)=>{
+            ele.stopPropagation();
             const args = {
                 'index' : indexArray[index]
             }
@@ -162,6 +166,23 @@ function addUpdateEvent(){
     })
 }
 
+function addTileOpenEvent(){
+    // for opening tile
+    const content = document.querySelectorAll('.content')
+    content.forEach((eachContent,index)=>{
+        eachContent.addEventListener('click',(ele)=>{
+            const args = {
+                'index' : indexArray[index]
+            }
+            const queryParams = new URLSearchParams(args).toString();
+            const detailsUrl = `../html/details.html?${queryParams}`;
+
+            window.location.href = detailsUrl;
+        })
+    })
+}
+
+addTileOpenEvent()
 addDeleteEvent()
 addUpdateEvent()
 

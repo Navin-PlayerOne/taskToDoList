@@ -31,15 +31,24 @@ next.addEventListener('click', () => {
     updateTitle(nextDate);
 });
 
+function isSameDate(date1, date2) {
+    return (
+        date1.getFullYear() === date2.getFullYear() &&
+        date1.getMonth() === date2.getMonth() &&
+        date1.getDate() === date2.getDate()
+    );
+}
+
 function updateTitle(date) {
-    listItems(date)
+    listItems(date);
     const today = new Date();
-    if (date < today) {
-        title.textContent = "Past Events";
-    } else if (date > today) {
-        title.textContent = "Upcoming Events";
-    } else {
+    
+    if (isSameDate(date, today)) {
         title.textContent = "Today's Events";
+    } else if (date < today) {
+        title.textContent = "Past Events";
+    } else {
+        title.textContent = "Upcoming Events";
     }
 }
-updateTitle(Date())
+updateTitle(new Date())

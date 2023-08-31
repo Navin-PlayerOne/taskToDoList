@@ -25,10 +25,10 @@ function getUpdated(index){
                     'eventHost' : eventHost.value,
                     'eventLocation' : eventLocation.value,
                     'eventDate' : eventDate.value,
-                    'lastModified' : eventDate.value
+                    'lastModified' : new Date()
                 };
                 localStorage.setItem('eventObject' , JSON.stringify(eventObject))
-                window.history.back();
+                // window.history.back();
                 // window.location.href = '../index.html'
         }
     })
