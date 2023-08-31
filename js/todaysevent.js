@@ -53,10 +53,8 @@ function updateTitle(date) {
 }
 updateTitle(new Date())
 
-document.addEventListener('DOMContentLoaded', function (){
-    if (localStorage.getItem('reloadIndex')) {
-        localStorage.removeItem('reloadIndex'); // Clear the flag
-        location.reload(); // Reload the page
-        console.log('************************           **********************')
+window.onpageshow = function(event) {
+    if (event.persisted) {
+        location.reload();
     }
-});
+};

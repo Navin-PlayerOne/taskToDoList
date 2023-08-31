@@ -31,7 +31,6 @@ saveBtn.addEventListener('click',(event)=>{
             ];
         }
         localStorage.setItem('eventObject' , JSON.stringify(eventObject))
-        localStorage.setItem('reloadIndex', 'true');
         window.history.back();
         // window.location.href = '../index.html'
     }
