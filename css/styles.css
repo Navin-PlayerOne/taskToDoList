@@ -81,6 +81,12 @@ body {
     transition: all 0.3s ease;
 }
 
+.sub-menu.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
 .option1,.option2{
     display: flex;
     justify-content: space-between;
@@ -166,6 +172,12 @@ body {
     justify-content: center;
     padding-top: 1rem;
 }
+.cont-header{
+    font-size: 25px;
+}
+.cont-body{
+    color: grey;
+}
 
 .cont-body{
     display: flex;
@@ -187,4 +199,25 @@ body {
     text-align: left;
     margin-left: 2.5rem;
     margin-top: 1rem;
+}
+
+@media (max-width:990px) {
+    #todoContainer{
+        height: 50%;
+        width: 70%;
+    }   
+}
+
+@media (max-width:580px) {
+    #todoContainer{
+        height: 50%;
+        width: 80%;
+    }
+}
+
+@media (max-width:500px) {
+    #todoContainer{
+        height: 50%;
+        width: 95%;
+    }
 }

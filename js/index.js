@@ -83,44 +83,77 @@ function listItems(currentDate){
             todoContainer.appendChild(content)
 })
             const noevent = document.querySelector('.noevent')
-            if(eventData.length==0){
+            if(eventData.length==0 || eventData==null){
                 noevent.style = "display : block";
             }
             else{
                 noevent.style = "display : none";
             }
+            console.log("Event Data : "+eventData)
             createPopUp()
             addDeleteEvent()
             addUpdateEvent()
             addTileOpenEvent()
     } catch (error) {
+        const noevent = document.querySelector('.noevent')
         console.log('no data')
-        
+        noevent.style = "display : block";   
     }
 }
+
+
+let currentlyOpenSubMenuIndex = null;
+
+//for popup menu inside the tile
 
 function createPopUp(){
     // Select the target node that you want to observe
     const targetNode = document.getElementById('todoContainer');
-    const menuButton = document.querySelectorAll('.contentMenu')
+    const menuButtons = document.querySelectorAll('.contentMenu')
     const subMenu = document.querySelectorAll('.sub-menu')
 
 
     // for showing and hiding the menu
 
-    menuButton.forEach((element,index)=>{
-        element.addEventListener('click',(event)=>{
+    menuButtons.forEach((element, index) => {
+        element.addEventListener('click', (event) => {
             event.stopPropagation();
-            console.log('its clicking dude')
-            if(subMenu[index].style.opacity==0){
-                subMenu[index].style = "opacity: 1;visibility: visible;"
-            }
-            else{
-                subMenu[index].style = "opacity: 0;visibility: hidden;"
-            }
-        })
-    })
+            toggleSubMenu(index);
+        });
+    });
+    
+
+    function toggleSubMenu(index) {
+        const subMenus = document.querySelectorAll('.sub-menu');
+        const targetSubMenu = subMenus[index];
+    
+        if (currentlyOpenSubMenuIndex !== null) {
+            subMenus[currentlyOpenSubMenuIndex].classList.remove('active');
+        }
+    
+        targetSubMenu.classList.toggle('active');
+        
+        currentlyOpenSubMenuIndex = targetSubMenu.classList.contains('active') ? index : null;
+    }    
 }
+
+//for autoclose the menu when we click outside
+
+document.addEventListener('click', (event) => {
+    const menuButtons = document.querySelectorAll('.contentMenu');
+    const subMenus = document.querySelectorAll('.sub-menu');
+
+    for (let i = 0; i < menuButtons.length; i++) {
+        const menuButton = menuButtons[i];
+        const subMenu = subMenus[i];
+
+        if (menuButton !== event.target && subMenu !== event.target) {
+            subMenu.classList.remove('active');
+        }
+    }
+});
+
+
 
 const addButton = document.querySelector('#addbutton')
 
