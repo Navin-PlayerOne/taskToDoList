@@ -192,7 +192,7 @@ function addUpdateEvent(){
                 'index' : indexArray[index]
             }
             const queryParams = new URLSearchParams(args).toString();
-            const updateUrl = `./html/adddetails.html?${queryParams}`;
+            const updateUrl = `/html/adddetails.html?${queryParams}`;
 
             window.location.href = updateUrl;
         })
