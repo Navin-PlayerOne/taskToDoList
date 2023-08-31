@@ -91,6 +91,7 @@ function listItems(currentDate){
             }
             createPopUp()
             addDeleteEvent()
+            addUpdateEvent()
     } catch (error) {
         console.log('no data')
         
@@ -144,6 +145,24 @@ function addDeleteEvent(){
         })
     })
 }
+
+function addUpdateEvent(){
+    // updating an event
+    const updateButtons = document.querySelectorAll('.option1')
+    updateButtons.forEach((eachUpdateButton,index)=>{
+        eachUpdateButton.addEventListener('click',(ele)=>{
+            const args = {
+                'index' : indexArray[index]
+            }
+            const queryParams = new URLSearchParams(args).toString();
+            const updateUrl = `../html/adddetails.html?${queryParams}`;
+
+            window.location.href = updateUrl;
+        })
+    })
+}
+
 addDeleteEvent()
+addUpdateEvent()
 
 createPopUp()

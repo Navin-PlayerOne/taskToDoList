@@ -31,6 +31,6 @@ saveBtn.addEventListener('click',(event)=>{
             ];
         }
         localStorage.setItem('eventObject' , JSON.stringify(eventObject))
-        window.location.href = 'index.html'
+        window.location.href = '../index.html'
     }
 })
