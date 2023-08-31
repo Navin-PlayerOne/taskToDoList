@@ -159,7 +159,7 @@ const addButton = document.querySelector('#addbutton')
 
 try {
     addButton.addEventListener('click',()=>{
-        window.location.href = './html/adddetails.html'
+        window.location.href = '../html/adddetails.html'
     })
 } catch (error) {
     console.log('bro this request is from todays event')
@@ -192,7 +192,7 @@ function addUpdateEvent(){
                 'index' : indexArray[index]
             }
             const queryParams = new URLSearchParams(args).toString();
-            const updateUrl = `/html/adddetails.html?${queryParams}`;
+            const updateUrl = `../html/adddetails.html?${queryParams}`;
 
             window.location.href = updateUrl;
         })
@@ -208,7 +208,7 @@ function addTileOpenEvent(){
                 'index' : indexArray[index]
             }
             const queryParams = new URLSearchParams(args).toString();
-            const detailsUrl = `./html/details.html?${queryParams}`;
+            const detailsUrl = `../html/details.html?${queryParams}`;
 
             window.location.href = detailsUrl;
         })
